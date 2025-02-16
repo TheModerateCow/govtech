@@ -42,7 +42,13 @@ CREATE TABLE
 
 -- Insert Data
 INSERT INTO
-    student (name)
+    teacher (name)
+VALUES
+    ('Jamima Wait'),
+    ('Dar Sheddan');
+
+INSERT INTO
+    student (name, teacher_id)
 VALUES
     ('Dame', 1),
     ('Adina', 1),
@@ -54,12 +60,6 @@ VALUES
     ('Babbette', 2),
     ('Shelby', 2),
     ('Andras', 2);
-
-INSERT INTO
-    teacher (name)
-VALUES
-    ('Jamima Wait'),
-    ('Dar Sheddan');
 
 INSERT INTO
     semester (sem_no, year, start_month, end_month)
