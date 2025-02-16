@@ -2,11 +2,6 @@ DROP SCHEMA IF EXISTS public CASCADE;
 
 CREATE SCHEMA public;
 
--- Assumption: 
--- A student will take multiple course over many semesters but will only take 1 course per semester
--- A student will only be assigned to one teacher over the full semester period. So student named tom will be assigned to a teacher name John for the whole school duration
--- It is a good idea to keep track of course names, student names, and teacher names.
--- The database only tracks the month, regards of the exact date.
 CREATE TABLE
     teacher (teacher_id SERIAL PRIMARY KEY, name VARCHAR(100));
 
@@ -18,7 +13,6 @@ CREATE TABLE
         FOREIGN KEY (teacher_id) REFERENCES teacher (teacher_id)
     );
 
--- Changed date to month, focused on what the question is asking for.
 CREATE TABLE
     semester (
         sem_no INT,
@@ -40,7 +34,6 @@ CREATE TABLE
         FOREIGN KEY (sem_no, year) REFERENCES semester (sem_no, year)
     );
 
--- Insert Data
 INSERT INTO
     teacher (name)
 VALUES
@@ -73,7 +66,6 @@ VALUES
     (1, 2024, '08', '11'),
     (2, 2024, '01', '04');
 
--- Student id of 1
 INSERT INTO
     COURSE (student_id, sem_no, year, course_name, grade)
 VALUES
@@ -86,7 +78,6 @@ VALUES
     (1, 1, 2024, 'English 101', 'A+'),
     (1, 2, 2024, 'English 102', 'A+');
 
--- For student_id = 2
 INSERT INTO
     course (student_id, sem_no, year, course_name, grade)
 VALUES
@@ -99,7 +90,6 @@ VALUES
     (2, 1, 2024, 'English 101', 'A'),
     (2, 2, 2024, 'English 102', 'B+');
 
--- For student_id = 3
 INSERT INTO
     course (student_id, sem_no, year, course_name, grade)
 VALUES
@@ -112,7 +102,6 @@ VALUES
     (3, 1, 2024, 'Philosophy 101', 'A'),
     (3, 2, 2024, 'Philosophy 102', 'B+');
 
--- For student_id = 4
 INSERT INTO
     course (student_id, sem_no, year, course_name, grade)
 VALUES
@@ -125,7 +114,6 @@ VALUES
     (4, 1, 2024, 'English Literature 101', 'A'),
     (4, 2, 2024, 'English Literature 102', 'A-');
 
--- For student_id = 5
 INSERT INTO
     course (student_id, sem_no, year, course_name, grade)
 VALUES
@@ -138,7 +126,6 @@ VALUES
     (5, 1, 2024, 'Theatre 101', 'A'),
     (5, 2, 2024, 'Theatre 102', 'B+');
 
--- For student_id = 6
 INSERT INTO
     course (student_id, sem_no, year, course_name, grade)
 VALUES
@@ -151,7 +138,6 @@ VALUES
     (6, 1, 2024, 'Marketing 101', 'A'),
     (6, 2, 2024, 'Marketing 102', 'A-');
 
--- For student_id = 7
 INSERT INTO
     course (student_id, sem_no, year, course_name, grade)
 VALUES
@@ -164,7 +150,6 @@ VALUES
     (7, 1, 2024, 'English 101', 'B+'),
     (7, 2, 2024, 'English 102', 'B');
 
--- For student_id = 8
 INSERT INTO
     course (student_id, sem_no, year, course_name, grade)
 VALUES
@@ -176,3 +161,27 @@ VALUES
     (8, 2, 2023, 'Economics 102', 'A-'),
     (8, 1, 2024, 'Philosophy 101', 'B'),
     (8, 2, 2024, 'Philosophy 102', 'B+');
+
+INSERT INTO
+    course (student_id, sem_no, year, course_name, grade)
+VALUES
+    (9, 1, 2021, 'Philosophy 101', 'A'),
+    (9, 2, 2021, 'Philosophy 102', 'A-'),
+    (9, 1, 2022, 'Sociology 101', 'B+'),
+    (9, 2, 2022, 'Sociology 102', 'B'),
+    (9, 1, 2023, 'Psychology 101', 'A'),
+    (9, 2, 2023, 'Psychology 102', 'A'),
+    (9, 1, 2024, 'Anthropology 101', 'A-'),
+    (9, 2, 2024, 'Anthropology 102', 'B+');
+
+INSERT INTO
+    course (student_id, sem_no, year, course_name, grade)
+VALUES
+    (10, 1, 2021, 'Literature 101', 'B'),
+    (10, 2, 2021, 'Literature 102', 'B+'),
+    (10, 1, 2022, 'Drama 101', 'A'),
+    (10, 2, 2022, 'Drama 102', 'A-'),
+    (10, 1, 2023, 'Art History 101', 'A'),
+    (10, 2, 2023, 'Art History 102', 'B+'),
+    (10, 1, 2024, 'Music Theory 101', 'B'),
+    (10, 2, 2024, 'Music Theory 102', 'B+');
