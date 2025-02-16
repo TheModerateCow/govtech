@@ -28,4 +28,18 @@ PGHOST=your_neon_db_host
 PGDATABASE=your_neon_db_name
 PGUSER=your_neon_db_user
 PGPASSWORD=your_neon_db_password
+```
+
+### 2. Running the Application with Docker
+
+```bash
+docker-compose up --build
+```
+
+### 3. Connect to Application
+
+Connect to `http://localhost:5000`
+
+
+
 
