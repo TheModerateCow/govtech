@@ -44,16 +44,16 @@ CREATE TABLE
 INSERT INTO
     student (name)
 VALUES
-    ('Dame'),
-    ('Adina'),
-    ('Rebecka'),
-    ('Helsa'),
-    ('Isacco'),
-    ('Mickey'),
-    ('Lethia'),
-    ('Babbette'),
-    ('Shelby'),
-    ('Andras');
+    ('Dame', 1),
+    ('Adina', 1),
+    ('Rebecka', 1),
+    ('Helsa', 1),
+    ('Isacco', 1),
+    ('Mickey', 2),
+    ('Lethia', 2),
+    ('Babbette', 2),
+    ('Shelby', 2),
+    ('Andras', 2);
 
 INSERT INTO
     teacher (name)
