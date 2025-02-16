@@ -4,7 +4,6 @@ from entities.student import Student
 
 app = Flask(__name__)
 
-# Create a Database instance
 db = Database()
 
 grades = {
@@ -46,7 +45,7 @@ def init_db():
 with app.app_context():
     init_db()
 
-@app.route('/student/<int:student_id>', methods=['GET'])
+@app.route('/students/<int:student_id>', methods=['GET'])
 def get_student(student_id):
     try:
         # Get a connection from the pool
@@ -79,11 +78,11 @@ def get_student(student_id):
             cgpa = cgpa / count
         student_obj = Student(rows[0][0], rows[0][1], rows[0][2], cgpa)
         
-        return jsonify(student_obj.to_dict())
+        return jsonify(student_obj.to_dict()), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/students/<int:student_id>', methods=['POST'])
+@app.route('/students/<int:student_id>', methods=['PUT'])
 def update_student(student_id):
     try:
         data = request.get_json()
@@ -133,7 +132,7 @@ def update_student(student_id):
         cgpa = total / count if count > 0 else 0
         
         student_obj = Student(student_row[0], student_row[1], student_row[2], cgpa)
-        return jsonify(student_obj.to_dict())
+        return jsonify(student_obj.to_dict()), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -149,6 +148,8 @@ def cumulative_gpa():
         
         if None in (start_year, start_sem, end_year, end_sem):
             return jsonify({"error": "start_year, start_sem, end_year, and end_sem are required parameters."}), 400
+        if start_year < end_year:
+            return jsonify({"error": "end_year cannot be before start_year"}), 400
         
         start_val = start_year * 10 + start_sem
         end_val = end_year * 10 + end_sem
@@ -157,7 +158,7 @@ def cumulative_gpa():
         cursor = conn.cursor()
         
         cursor.execute("""
-            SELECT s.student_id, s.name, c.grade, c.year, c.sem_no
+            SELECT s.student_id, s.name, c.grade
             FROM course c
             JOIN student s ON c.student_id = s.student_id
             WHERE (c.year * 10 + c.sem_no) BETWEEN %s AND %s
@@ -170,7 +171,7 @@ def cumulative_gpa():
         
         student_data = {}
         for row in rows:
-            student_id, student_name, grade_letter, course_year, course_sem = row
+            student_id, student_name, grade_letter = row
             if student_id not in student_data:
                 student_data[student_id] = {
                     'student_name': student_name,
@@ -190,7 +191,7 @@ def cumulative_gpa():
                 "cumulative_gpa": cumulative
             })
         
-        return jsonify(results)
+        return jsonify(results), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
