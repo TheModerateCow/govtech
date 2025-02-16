@@ -148,8 +148,6 @@ def cumulative_gpa():
         
         if None in (start_year, start_sem, end_year, end_sem):
             return jsonify({"error": "start_year, start_sem, end_year, and end_sem are required parameters."}), 400
-        if start_year < end_year:
-            return jsonify({"error": "end_year cannot be before start_year"}), 400
         
         start_val = start_year * 10 + start_sem
         end_val = end_year * 10 + end_sem
